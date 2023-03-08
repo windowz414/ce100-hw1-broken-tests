@@ -2,8 +2,11 @@ namespace ce100_hw1_broken_tests
 {
     public class ce100_hw1_algo_lib
     {
-        static void SelectionSort(int[] arr)
+        static int[] SelectionSort(int[] arr)
         {
+            // Set length of the received
+            // array into an integer for
+            // counting.
             int n = arr.Length;
 
             // One by one move boundary of 
@@ -24,6 +27,10 @@ namespace ce100_hw1_broken_tests
                 arr[min_idx] = arr[i];
                 arr[i] = temp;
             }
+
+            // Lastly return the modified
+            // array.
+            return arr;
         }
     }
 }

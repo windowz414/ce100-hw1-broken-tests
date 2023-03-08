@@ -1,3 +1,5 @@
+using System;
+
 namespace ce100_hw1_broken_tests
 {
     public class ce100_hw1_algo_lib
@@ -104,6 +106,120 @@ namespace ce100_hw1_broken_tests
                 j++;
                 k++;
             }
+        }
+
+        // Quick Sort with Hoare's partitioning.
+        static int[] HoareQuickSort(int[] arr, int low, int high)
+        {
+            if (low < high)
+            {
+                // Partition the array and
+                // get the pivot index.
+                int pi = HoarePartition(arr, low, high);
+
+                // Recursively sort the left
+                // and right subarrays.
+                HoareQuickSort(arr, low, pi - 1);
+                HoareQuickSort(arr, pi + 1, high);
+            }
+
+            return arr;
+        }
+
+        static int HoarePartition(int[] arr, int low, int high)
+        {
+            // Generate a random pivot index.
+            Random rand = new Random();
+            int pivotIndex = rand.Next(low, high);
+            int pivot = arr[pivotIndex];
+
+            // Initialize two pointers i and j.
+            int i = low - 1;
+            int j = high + 1;
+
+            // Loop until i and j cross each other.
+            while (true)
+            {
+                // Find the index of the first
+                // element from the left that
+                // is greater than or equal to the
+                // pivot.
+                do
+                {
+                    i++;
+                } while (arr[i] < pivot);
+
+                // Find the index of the first
+                // element from the right that is
+                // less than or equal to the pivot.
+                do
+                {
+                    j--;
+                } while (arr[j] > pivot);
+
+                // If i and j have crossed each other,
+                // return j as the new pivot index.
+                if (i >= j)
+                {
+                    return j;
+                }
+
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+
+        static int[] LomutoQuickSort(int[] arr, int low, int high)
+        {
+            if (low < high)
+            {
+                // partition the array and get the pivot index
+                int pi = LomutoPartition(arr, low, high);
+
+                // recursively sort the left and right subarrays
+                LomutoQuickSort(arr, low, pi - 1);
+                LomutoQuickSort(arr, pi + 1, high);
+            }
+
+            return arr;
+        }
+
+        static int LomutoPartition(int[] arr, int low, int high)
+        {
+            // generate a random pivot index
+            Random rand = new Random();
+            int pivotIndex = rand.Next(low, high);
+            int pivot = arr[pivotIndex];
+
+            // move the pivot element to the end of the array
+            int temp1 = arr[pivotIndex];
+            arr[pivotIndex] = arr[high];
+            arr[high] = temp1;
+
+            // initialize the partition index
+            int i = low - 1;
+
+            // loop through the array from low to high-1
+            for (int j = low; j < high; j++)
+            {
+                // if the current element is less than or equal to the pivot, swap it with the element at the partition index
+                if (arr[j] <= pivot)
+                {
+                    i++;
+                    int temp2 = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp2;
+                }
+            }
+
+            // swap the pivot element back to its final position
+            int temp3 = arr[i + 1];
+            arr[i + 1] = arr[high];
+            arr[high] = temp3;
+
+            // return the index of the pivot element
+            return i + 1;
         }
     }
 }

@@ -203,7 +203,9 @@ namespace ce100_hw1_broken_tests
             // loop through the array from low to high-1
             for (int j = low; j < high; j++)
             {
-                // if the current element is less than or equal to the pivot, swap it with the element at the partition index
+                // if the current element is less than or equal
+                // to the pivot, swap it with the element at the
+                // partition index
                 if (arr[j] <= pivot)
                 {
                     i++;
@@ -267,6 +269,214 @@ namespace ce100_hw1_broken_tests
                     return BinarySearchRecursive(inputArray, key, mid + 1, max);
                 }
             }
+        }
+
+        public static int[,] IterativeMatrixMultiplication(int[,] A, int[,] B)
+        {
+            // Ensure that the number of columns in A matches the
+            // number of rows in B.
+            if (A.GetLength(1) != B.GetLength(0))
+            {
+                return null;
+            }
+
+            int[,] product = new int[A.GetLength(0), B.GetLength(1)];
+
+            // Iterate through each row of A.
+            for (int i = 0; i < A.GetLength(0); i++)
+            {
+                // Iterate through each column of B.
+                for (int j = 0; j < B.GetLength(1); j++)
+                {
+                    // Iterate through each element of the current
+                    // row of A and the current column of B.
+                    for (int k = 0; k < B.GetLength(0); k++)
+                    {
+                        // Multiply the corresponding elements and
+                        // add to the current element of the product
+                        // matrix.
+                        product[i, j] += A[i, k] * B[k, j];
+                    }
+                }
+            }
+
+            return product;
+        }
+
+        public static int[,] RecursiveMatrixMultiplication(int[,] A, int[,] B)
+        {
+            // Ensure that the number of columns in A matches the
+            // number of rows in B
+            if (A.GetLength(1) != B.GetLength(0))
+            {
+                return null;
+            }
+
+            int[,] product = new int[A.GetLength(0), B.GetLength(1)];
+
+            // Base case: if A or B is a 1x1 matrix, return their product
+            if (A.GetLength(0) == 1 && A.GetLength(1) == 1 && B.GetLength(0) == 1 && B.GetLength(1) == 1)
+            {
+                product[0, 0] = A[0, 0] * B[0, 0];
+                return product;
+            }
+
+            // Split matrices A and B into four submatrices
+            int[,] A11 = new int[A.GetLength(0) / 2, A.GetLength(1) / 2];
+            int[,] A12 = new int[A.GetLength(0) / 2, A.GetLength(1) / 2];
+            int[,] A21 = new int[A.GetLength(0) / 2, A.GetLength(1) / 2];
+            int[,] A22 = new int[A.GetLength(0) / 2, A.GetLength(1) / 2];
+
+            int[,] B11 = new int[B.GetLength(0) / 2, B.GetLength(1) / 2];
+            int[,] B12 = new int[B.GetLength(0) / 2, B.GetLength(1) / 2];
+            int[,] B21 = new int[B.GetLength(0) / 2, B.GetLength(1) / 2];
+            int[,] B22 = new int[B.GetLength(0) / 2, B.GetLength(1) / 2];
+
+            for (int i = 0; i < A.GetLength(0) / 2; i++)
+            {
+                for (int j = 0; j < A.GetLength(1) / 2; j++)
+                {
+                    A11[i, j] = A[i, j];
+                    A12[i, j] = A[i, j + A.GetLength(1) / 2];
+                    A21[i, j] = A[i + A.GetLength(0) / 2, j];
+                    A22[i, j] = A[i + A.GetLength(0) / 2, j + A.GetLength(1) / 2];
+
+                    B11[i, j] = B[i, j];
+                    B12[i, j] = B[i, j + B.GetLength(1) / 2];
+                    B21[i, j] = B[i + B.GetLength(0) / 2, j];
+                    B22[i, j] = B[i + B.GetLength(0) / 2, j + B.GetLength(1) / 2];
+                }
+            }
+
+            // Compute the products of the submatrices recursively
+            int[,] C11 = AddMatricesRecursive(RecursiveMatrixMultiplication(A11, B11), RecursiveMatrixMultiplication(A12, B21));
+            int[,] C12 = AddMatricesRecursive(RecursiveMatrixMultiplication(A11, B12), RecursiveMatrixMultiplication(A12, B22));
+            int[,] C21 = AddMatricesRecursive(RecursiveMatrixMultiplication(A21, B11), RecursiveMatrixMultiplication(A22, B21));
+            int[,] C22 = AddMatricesRecursive(RecursiveMatrixMultiplication(A21, B12), RecursiveMatrixMultiplication(A22, B22));
+
+            // Combine the submatrices back into the product matrix
+            for (int i = 0; i < product.GetLength(0) / 2; i++)
+            {
+                for (int j = 0; j < product.GetLength(1) / 2; j++)
+                {
+                    product[i, j] = C11[i, j];
+                    product[i, j + product.GetLength(1) / 2] = C12[i, j];
+                    product[i + product.GetLength(0) / 2, j] = C21[i, j];
+                    product[i + product.GetLength(0) / 2, j + product.GetLength(1) / 2] = C22[i, j];
+                }
+            }
+            return product;
+        }
+
+        public static int[,] AddMatricesRecursive(int[,] A, int[,] B)
+        {
+            int[,] sum = new int[A.GetLength(0), A.GetLength(1)]; for (int i = 0; i < A.GetLength(0); i++)
+            {
+                for (int j = 0; j < A.GetLength(1); j++)
+                {
+                    sum[i, j] = A[i, j] + B[i, j];
+                }
+            }
+
+            return sum;
+        }
+
+        public static int[,] MatrixMultiplicationStrassen(int[,] A, int[,] B)
+        {
+            int n = A.GetLength(0);
+            int[,] result = new int[n, n];
+
+            // Base case
+            if (n == 1)
+            {
+                result[0, 0] = A[0, 0] * B[0, 0];
+                return result;
+            }
+
+            // Divide matrices into quadrants
+            int halfN = n / 2;
+            int[,] A11 = new int[halfN, halfN];
+            int[,] A12 = new int[halfN, halfN];
+            int[,] A21 = new int[halfN, halfN];
+            int[,] A22 = new int[halfN, halfN];
+
+            int[,] B11 = new int[halfN, halfN];
+            int[,] B12 = new int[halfN, halfN];
+            int[,] B21 = new int[halfN, halfN];
+            int[,] B22 = new int[halfN, halfN];
+
+            for (int i = 0; i < halfN; i++)
+            {
+                for (int j = 0; j < halfN; j++)
+                {
+                    A11[i, j] = A[i, j];
+                    A12[i, j] = A[i, j + halfN];
+                    A21[i, j] = A[i + halfN, j];
+                    A22[i, j] = A[i + halfN, j + halfN];
+
+                    B11[i, j] = B[i, j];
+                    B12[i, j] = B[i, j + halfN];
+                    B21[i, j] = B[i + halfN, j];
+                    B22[i, j] = B[i + halfN, j + halfN];
+                }
+            }
+
+            // Recursive calls to calculate products
+            int[,] P1 = MatrixMultiplicationStrassen(AddMatricesStrassen(A11, A22), AddMatricesStrassen(B11, B22));
+            int[,] P2 = MatrixMultiplicationStrassen(AddMatricesStrassen(A21, A22), B11);
+            int[,] P3 = MatrixMultiplicationStrassen(A11, SubstractMatricesStrassen(B12, B22));
+            int[,] P4 = MatrixMultiplicationStrassen(A22, SubstractMatricesStrassen(B21, B11));
+            int[,] P5 = MatrixMultiplicationStrassen(AddMatricesStrassen(A11, A12), B22);
+            int[,] P6 = MatrixMultiplicationStrassen(SubstractMatricesStrassen(A21, A11), AddMatricesStrassen(B11, B12));
+            int[,] P7 = MatrixMultiplicationStrassen(SubstractMatricesStrassen(A12, A22), AddMatricesStrassen(B21, B22));
+
+            // Combine products into result matrix
+            int[,] C11 = AddMatricesStrassen(SubstractMatricesStrassen(AddMatricesStrassen(P1, P4), P5), P7);
+            int[,] C12 = AddMatricesStrassen(P3, P5);
+            int[,] C21 = AddMatricesStrassen(P2, P4);
+            int[,] C22 = AddMatricesStrassen(SubstractMatricesStrassen(AddMatricesStrassen(P1, P3), P2), P6);
+
+            // Copy quadrants back into the result matrix
+            for (int i = 0; i < halfN; i++)
+            {
+                for (int j = 0; j < halfN; j++)
+                {
+                    result[i, j] = C11[i, j];
+                    result[i, j + halfN] = C12[i, j];
+                    result[i + halfN, j] = C21[i, j];
+                    result[i + halfN, j + halfN] = C22[i, j];
+                }
+            }
+            return result;
+        }
+
+        // Helper methods for matrix addition and subtraction
+        public static int[,] AddMatricesStrassen(int[,] A, int[,] B)
+        {
+            int n = A.GetLength(0);
+            int[,] result = new int[n, n];
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    result[i, j] = A[i, j] + B[i, j];
+                }
+            }
+            return result;
+        }
+
+        public static int[,] SubstractMatricesStrassen(int[,] A, int[,] B)
+        {
+            int n = A.GetLength(0);
+            int[,] result = new int[n, n];
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    result[i, j] = A[i, j] - B[i, j];
+                }
+            }
+            return result;
         }
     }
 }

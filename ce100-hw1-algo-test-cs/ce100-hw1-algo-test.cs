@@ -123,20 +123,5 @@ namespace ce100_hw1_algo_test_cs
                 Assert.AreEqual(expectedIndex, actualIndex);
             }
         }
-
-        [TestMethod]
-        public void TestIterativeMatricMultiplication()
-        {
-        }
-
-        [TestMethod]
-        public void TestRecursiveMatrixMultiplication()
-        {
-        }
-
-        [TestMethod]
-        public void TestMatrixMultiplicationStrassen()
-        {
-        }
     }
 }

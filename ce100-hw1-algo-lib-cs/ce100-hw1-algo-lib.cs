@@ -4,7 +4,7 @@ namespace ce100_hw1_algo_lib_cs
 {
     public class ce100_hw1_algo_lib
     {
-        static int[] SelectionSort(int[] arr)
+        public static int[] SelectionSort(int[] arr)
         {
             // Set length of the received
             // array into an integer for
@@ -109,7 +109,7 @@ namespace ce100_hw1_algo_lib_cs
         }
 
         // Quick Sort with Hoare's partitioning.
-        static int[] HoareQuickSort(int[] arr, int low, int high)
+        public static int[] HoareQuickSort(int[] arr, int low, int high)
         {
             if (low < high)
             {
@@ -170,7 +170,7 @@ namespace ce100_hw1_algo_lib_cs
             }
         }
 
-        static int[] LomutoQuickSort(int[] arr, int low, int high)
+        public static int[] LomutoQuickSort(int[] arr, int low, int high)
         {
             if (low < high)
             {
@@ -368,7 +368,7 @@ namespace ce100_hw1_algo_lib_cs
             return product;
         }
 
-        public static int[,] AddMatricesRecursive(int[,] A, int[,] B)
+        static int[,] AddMatricesRecursive(int[,] A, int[,] B)
         {
             int[,] sum = new int[A.GetLength(0), A.GetLength(1)]; for (int i = 0; i < A.GetLength(0); i++)
             {
@@ -451,7 +451,7 @@ namespace ce100_hw1_algo_lib_cs
         }
 
         // Helper methods for matrix addition and subtraction
-        public static int[,] AddMatricesStrassen(int[,] A, int[,] B)
+        static int[,] AddMatricesStrassen(int[,] A, int[,] B)
         {
             int n = A.GetLength(0);
             int[,] result = new int[n, n];
@@ -465,7 +465,7 @@ namespace ce100_hw1_algo_lib_cs
             return result;
         }
 
-        public static int[,] SubstractMatricesStrassen(int[,] A, int[,] B)
+        static int[,] SubstractMatricesStrassen(int[,] A, int[,] B)
         {
             int n = A.GetLength(0);
             int[,] result = new int[n, n];

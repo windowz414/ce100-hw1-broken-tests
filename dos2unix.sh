@@ -1,3 +1,9 @@
+#
+# Copyright (C) 2023 Beru Hinode
+#
+# SPDX-License-Identifier: GPL-2.0-only
+#
+
 # Some preliminary checks regarding sourcing this script.
 # Source: https://stackoverflow.com/a/28776166
 (

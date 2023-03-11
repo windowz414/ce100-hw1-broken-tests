@@ -1,3 +1,9 @@
+/**
+ * Copyright (C) 2023 Beru Hinode. All Rights Reserved.
+ *
+ * SPDX-License-Identifier: GPL-2.0-only
+ */
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;

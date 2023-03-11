@@ -1,0 +1,9 @@
+# CE100, Homework 1
+
+### Presented by Team Broken Tests
+
+Members;
+- Bedirhan KURT (bedirhan_kurt22@erdogan.edu.tr, Developer Alias: `Beru Hinode <windowz414@1337.lgbt>`, GitHub username: windowz414)
+- Ahmet KAYA (ahmet_kaya21@erdogan.edu.tr, GitHub username: ahmetkayatr)
+
+Instructor: Ugur CORUH (GitHub username: ucoruh)

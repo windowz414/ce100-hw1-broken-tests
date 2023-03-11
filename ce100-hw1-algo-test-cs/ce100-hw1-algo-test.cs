@@ -109,6 +109,19 @@ namespace ce100_hw1_algo_test_cs
         [TestMethod]
         public void TestBinarySearchRecursive()
         {
+            // Arrange
+            int[] arr = Enumerable.Range(1, 10000).OrderBy(x => Guid.NewGuid()).ToArray();
+            Array.Sort(arr);
+
+            // Act
+            for (int i = 0; i < arr.Length; i++)
+            {
+                int key = arr[i];
+                int expectedIndex = i + 1;
+                int actualIndex = (int)ce100_hw1_algo_lib.BinarySearchRecursive(arr, key, 0, arr.Length - 1);
+                // Assert
+                Assert.AreEqual(expectedIndex, actualIndex);
+            }
         }
 
         [TestMethod]

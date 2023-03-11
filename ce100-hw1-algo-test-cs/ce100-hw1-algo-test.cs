@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
 using ce100_hw1_algo_lib_cs;
 
 namespace ce100_hw1_algo_test_cs
@@ -73,7 +74,7 @@ namespace ce100_hw1_algo_test_cs
         [TestMethod]
         public void TestLomutoQuickSort()
         {
-            // Generate 10k random inputs
+            // Arrange
             int[] arr = new int[10000];
             Random rand = new Random();
             for (int i = 0; i < arr.Length; i++)
@@ -81,10 +82,10 @@ namespace ce100_hw1_algo_test_cs
                 arr[i] = rand.Next();
             }
 
-            // Sort the array using Lomuto's Quicksort
+            // Act
             int[] sortedArr = ce100_hw1_algo_lib.LomutoQuickSort(arr, 0, arr.Length - 1);
 
-            // Check that the array is sorted
+            // Assert
             for (int i = 0; i < sortedArr.Length - 1; i++)
             {
                 Assert.IsTrue(sortedArr[i] <= sortedArr[i + 1]);
@@ -94,6 +95,15 @@ namespace ce100_hw1_algo_test_cs
         [TestMethod]
         public void TestBinarySearchIterative()
         {
+            // Arrange
+            int[] arr = Enumerable.Range(1, 10000).ToArray();
+            int key = 9000;
+
+            // Act
+            var result = ce100_hw1_algo_lib.BinarySearchIterative(arr, key);
+
+            // Assert
+            Assert.AreEqual(9000, result);
         }
 
         [TestMethod]

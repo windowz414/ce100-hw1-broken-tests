@@ -7,8 +7,8 @@
     <ProjectGuid>{64644558-EE20-4AAB-9257-8EB7E40F021A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ce100_hw1_broken_tests</RootNamespace>
-    <AssemblyName>ce100-hw1-broken-tests</AssemblyName>
+    <RootNamespace>ce100_hw1_algo_lib_cs</RootNamespace>
+    <AssemblyName>ce100-hw1-also-lib-cs</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

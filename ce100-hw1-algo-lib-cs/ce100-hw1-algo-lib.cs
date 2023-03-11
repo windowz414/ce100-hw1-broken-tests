@@ -1,6 +1,6 @@
 using System;
 
-namespace ce100_hw1_broken_tests
+namespace ce100_hw1_algo_lib_cs
 {
     public class ce100_hw1_algo_lib
     {

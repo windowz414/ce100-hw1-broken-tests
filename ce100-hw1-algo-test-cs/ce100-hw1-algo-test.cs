@@ -31,6 +31,22 @@ namespace ce100_hw1_algo_test_cs
         [TestMethod]
         public void TestMergeSortRecursive()
         {
+            // Arrange
+            int[] arr = new int[10000];
+            Random rand = new Random();
+            for (int i = 0; i < arr.Length; i++)
+            {
+                arr[i] = rand.Next();
+            }
+
+            // Act
+            ce100_hw1_algo_lib.MergeSortRecursive(ref arr, 0, arr.Length - 1);
+
+            // Assert
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                Assert.IsTrue(arr[i] <= arr[i + 1]);
+            }
         }
 
         [TestMethod]

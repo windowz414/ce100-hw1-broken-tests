@@ -119,7 +119,7 @@ namespace ce100_hw1_algo_lib_cs
 
                 // Recursively sort the left
                 // and right subarrays.
-                HoareQuickSort(arr, low, pi - 1);
+                HoareQuickSort(arr, low, pi);
                 HoareQuickSort(arr, pi + 1, high);
             }
 

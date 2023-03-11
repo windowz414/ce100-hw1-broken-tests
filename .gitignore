@@ -400,3 +400,8 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+### Doxygen ###
+
+# LaTeX generated documentation files
+latex/
